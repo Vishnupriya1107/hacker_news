@@ -26,4 +26,11 @@ jobs:
       run: chmod +x ${{ github.workspace }}/scripts/hn_side_projects.py
     
     - name: Run HN fetcher
-      run: python ${{ github.workspace }}/scripts/hn_side_projects.py 
+      run: python ${{ github.workspace }}/scripts/hn_side_projects.py > latest_hn_link.txt
+    
+    - name: Commit and push if changes exist
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add latest_hn_link.txt
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update HN link $(date)" && git push) 
