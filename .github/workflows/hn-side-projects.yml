@@ -22,5 +22,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install feedparser
     
+    - name: Set script permissions
+      run: chmod +x ${{ github.workspace }}/scripts/hn_side_projects.py
+    
     - name: Run HN fetcher
-      run: python scripts/hn_side_projects.py 
+      run: python ${{ github.workspace }}/scripts/hn_side_projects.py 
